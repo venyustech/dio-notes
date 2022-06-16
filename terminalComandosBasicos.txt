@@ -1,0 +1,940 @@
+------------ Mensagem sobre comandos linux ------------------
+
+Abaixo uma lista de comandos básicos no linux para navegação,
+comunicação com usuários, cópias e movimentações, e compilação.
+
+------------------------------- ATALHOS E DEFINIÇÕES:
+
+~ : equivale a /home/seuusuario/
+. : equivale ao nome da pasta atual
+.. : equivale ao nome da pasta anterior (acima, ou pai)
+* : coringa: qualquer sequencia de caracteres em nomes de arquivos.
+? : coringa: um único caracter qualquer.
+seta para cima: recupera na ordem todas as linhas digitadas
+seta para baixo: volta as linhas digitadas
+
+
+$ ou cifrão: usado para indicar o prompt onde se digitam comandos
+argumentos: sequencia de palavras/valores separados por espaços em branco
+comando: um programa do linux (ou de criação própria) que é dado no prompt e pode ou não precisar de argumentos
+chaves: sequencia de hifens e letras (exemplo: -h -n) que definem o comportamento do comando. Normalmente a chave -h é para help
+chaves longas: sequencia de 2 hífens e a palavra reservada da chave. Exemplo: --help
+chaves com argumentos: algumas chaves necessitam ser seguidas de um argumento para funcionar. Exemplo: a chave -o (de output) indica o arquivo de saída de um comando. No gcc isso é indicado com o nome do arquivo executável -o saida.exe
+diretório ou pasta: nome dado a um tipo especial de arquivo que se comporta como uma "caixa" onde se podem guardar agrupados arquivos ou outras pastas.
+arquivo: um grupo de dados gravado com um nome e opcionalmente uma extensão que indica o que são os dados. As extensões mais comuns são:
+
+".txt" para texto puro
+".c" para programa em linguagem c (texto legível)
+".js" para programa em linguagem javascript (texto legível)
+".css" para programa em linguagem Coding Style Sheets (texto legível)
+".html" para programa em linguagem de Marcação de Hipertexto (texto legível)
+".pl" para programa em linguagem prolog (texto legível)
+".gpt" para programa em linguagem portugol (texto legível)
+".sh" para programa em linguagem bash (script linux)
+".x", ".bin" ou ".exe" para binário executável (não legível)
+".py" para programas em python
+".tex" para textos em Latex que são compilados para ".pdf"
+
+------------------------
+Para a linguagem C, o uso normal:
+programa.c   -> programa.x
+
+Para as outras linguagens (Java, Portugol, etc.), usaremos duas extensões:
+programa.js -> programa.js.x
+programa.gpt -> programa.gpt.x
+programa.pl -> programa.pl.x
+
+------------------------------- COMANDO: exit
+
+Para finalizar a sua conexão SSH com um servidor.
+
+Utilize SEMPRE antes de fechar a janela.
+
+------------------------------- COMANDO: ssh
+
+Utilizado para iniciar uma conexão com um servidor. (Comando para unix/linux/mac. Para windows, utilize o putty.exe)
+
+$ssh usuario@servidor
+
+Ele pede sua senha. Após conectado, tudo o que se digita no terminal se passa como se estivesse digitando no teclado do próprio servidor. Por isso o ambiente em que você está teclando é chamado local, e se tentar usar outro computador, é chamado remoto. Note que antes de conectar, o "local" é sua máquina. Depois de conectar, o "local" é o servidor, e sua máquina é "remoto" do ponto de vista do servidor.
+
+A porta usada para SSH é 22. O tipo de codificação das letras é UTF-8. No primeiro acesso pode aparecer um pedido para a confirmação da chave pública do servidor.
+
+------------------------------- COMANDO: passwd
+Para mudar sua senha.
+
+$passwd
+Pede a senha atual, e pede a nova senha duas vezes antes de confirmar a mudança.
+
+------------------------------- COMANDO: man
+
+$man algum-comando-qualquer
+Dá a página manual de algum-comando-qualquer com explicações de como
+usá-lo. Para sair, tecle 'q'.
+Por exemplo:
+$man ls
+ou
+$man gcc
+
+Exemplo com texto para aprendizado do sistema de arquivos linux:
+
+$man hier
+
+------------------------------- COMANDO: date
+
+Mostra a data/hora atual do relógio do sistema
+$date
+
+
+------------------------------- COMANDO: pwd
+
+$pwd
+Mostra sua pasta atual.
+
+Exemplo:
+$cd discreta
+$pwd
+/home/seuusuario/discreta/
+$cd
+$pwd
+/home/seuusuario
+
+Normalmente desnecessário, pois a pasta atual sempre aparece no prompt, antes do cifrão ($).
+
+
+------------------------------- COMANDO: cd
+
+$cd
+Sem argumentos, move para a pasta do usuário /home/seuusuario. É o
+mesmo que cd ~
+
+$cd /home/seuusuario/pasta1/pastaDeDentro2/
+CAMINHO ABSOLUTO: O caminho absoluto sempre inicia com '/', e o cd movera voce
+para a pasta /home/seuusuario/pasta1/pastaDeDentro2 independente da sua pasta
+atual.
+
+$cd rascunhos/
+CAMINHO RELATIVO: Sempre inicia sem o caracter de '/'. Move para a
+pasta home/seuusuario/rascunhos a partir da pasta atual (que deve ser a
+pasta /home/seuusuario). Se dentro da pasta atual não
+existir a pasta rascunhos, e por sua vez a pasta rascunhos, acusa erro.
+Este exemplo sugere que a pasta atual
+seja /home/seuusuario, para que funcione.
+
+As pastas e arquivos podem ser indicadas com caminhos absolutos ou
+relativos em todos os comandos que pedem pastas/arquivos como
+argumentos. Vejamos o comando ls para listar arquivos em uma pasta.
+
+------------------------------- COMANDO: ls
+
+$ls
+Lista os arquivos da pasta atual ('.') em formato resumido. O mesmo
+que digitar ls .
+O '.' representa a pasta atual.
+
+$ls ..
+Lista os arquivos da pasta anterior à atual. Se sua pasta atual é
+/home/seuusuario/pasta1/pasta2 o comando listará os arquivos da pasta
+/home/seuusuario/pasta1/
+
+$ls -l
+Lista os arquivos da pasta atual em formato completo. Mostra as
+permições de leitura (r), gravação (w) e execução (x) para o dono
+(seuusuario), o grupo (student) e os outros usuários (others). Mostra
+uma letra "d" se o "inode" em questão é um arquivo ou pasta. Os
+arquivos executáveis devem ter um 'x'. O compilador normalmente já
+coloca o 'x' automaticamente. As pastas são "executáveis" para poderem
+ser acessadas (se poder entrar nelas).
+
+Exemplo usando caminho absoluto:
+$ls /home/seuusuario/pasta1
+Mostra o conteúdo da pasta /home/seuusuario/pasta1 independente de sua
+pasta atual.
+
+Exemplo usando caminho relativo:
+Suponha que sua pasta atual seja /home/seuusuario. Se não for, use o
+comando "cd" sem argumentos para ir para sua pasta de usuário (também
+chamada de home, apesar de que não é a pasta /home, e sim
+/home/seuusuario). Para confirmar sua pasta atual, use o comando
+"pwd".
+Estando na pasta do seu usuário, digite:
+$ls informatica
+Isto irá mostrar o conteúdo da pasta informatica.
+
+Exemplo de coringa (*): 
+Para mostrar apenas os arquivos fontes ".hmtl", na pasta pasta1/rascunhos, relativa a atual /home/seuusuario, ignorando os executáveis (sem extensão), as bibliotecas,
+arquivos textos e o que mais tiver na pasta, use o comando:
+$ls informatica/rascunhos/*.html
+
+Para mostrar os arquivos com o meio do nome "problema", inicial do nome
+qualquer, e final do nome qualquer, na pasta atual utilize:
+$ls *problema*
+
+Para listar todos os arquivos não é necessário coringa, seria apenas
+*, mas o ls já faz isso. Para listar arquivos que possuem um '.' no
+meio, assim como o exemplo anterior em que "problema" estava no meio,
+utilize:
+$ls *.*
+
+
+
+O comando
+$ls -la
+faz listas longas e mostra arquivos ocultos (arquivos com nome iniciado por ".")
+Ele tem uma abreviação. Basta digitar:
+$la
+
+$ls -v
+Lista em ordem numérica. Às vezes vc lista um diretório com arquivos nomeados com números de versões, como ex1.c, ex2.c, ex..., ex11.c, ex12.c... Mas em ordem alfabética (com ls simples), você verá: ex1.c, ex11.c, e só depois o ex2.c. Para usar ordem numérica, use a chave -v.
+
+$ls -t
+Lista por ordem de data da modificação.
+
+$ls -s
+Lista por ordem de tamanho do arquivo.
+
+------------------------------- COMANDO: cp
+
+Comando para cópia:
+
+$cp origem destino
+Onde origem é o arquivo (ou coringa para vários arquivos) que será
+duplicado. Destino é a pasta da cópia final, ou é um outro nome de
+arquivo na mesma pasta, ou o mesmo nome em outra pasta. Caso o destino
+já exista, será sobrescrito.
+
+Exemplos de "origem" e "destino" em formatos de caminho absoluto:
+
+$cp /home/seuusuario/informatica/rascunhos/exemplo.c /home/seuusuario/informatica/trabalhos
+Este comando copia o arquivo exemplo.c da pasta
+/home/seuusuario/informatica/rascunhos/ para a pasta
+/home/seuusuario/informatica/trabalhos/
+Caso exista um arquivo com o mesmo nome da pasta, é importante colocar
+um barra ao final para indicar que é para a pasta, e não para
+sobrescrever o arquivo.
+
+Exemplo: imagine que na sua pasta /home/seuusuario/informatica/ existam a pasta
+trabalhos/ e o arquivo trabalho. Neste caso, para indicar a cópia
+para a pasta informatica use a barra ao final:
+$cp /home/seuusuario/informatica/rascunhos/exemplo.c
+/home/seuusuario/informatica/trabalhos/
+
+Exempo de "origem" e "destino" relativos. Suponha que sua pasta atual seja:
+$pwd
+/home/seuusuario
+Então o comando:
+$cp informatica/rascunhos/exercicio1* informatica/trabalhos
+copia os arquivos que iniciarem com o nome exercicio1 se existirem, na pasta
+/home/seuusuario/informatica/rascunhos/ para a pasta
+/home/seuusuario/informatica/trabalhos/
+
+
+Utilizando o coringa:
+
+Para copiar todos os arquivos de uma pasta para outra, utilize:
+$cp informatica/rascunhos/* ~/backup
+Este exemplo utiliza a origem como caminho relativo, pegando todos (*)
+arquivos da pasta a partir da atual (supostamente /home/seuusuario)
+informatica/rascunhos, e os copia para a pasta (supostamente existente)
+/home/seuusuario/backup. Se a pasta backup não existir, ocorrerá um
+erro. O ' ~' utilizado em ~/backup é expandido automaticamente para
+/home/seuusuario/
+
+Para copiar um arquivo para a pasta 'anterior' (a partir da atual, sua pasta "pai") utiliza-se:
+$cp arquivo.txt ..
+A abreviação '..' significa a pasta anterior a atual (ou pasta pai da atual).
+
+
+------------------------------- COMANDO: mv
+
+Comando para mover um arquivo ou pasta de uma pasta para outra, ou para
+renomear (caso mova com outro nome para a mesma pasta)
+O comando mv tem sintaxe idêntica ao comando cp.
+$mv arquivoorigem arquivodestino
+
+A diferença é que cria o destino e apaga a origem (move o arquivo, não copia).
+
+Exemplo 1: mover para pasta "acima" (ou pasta pai)
+$mv arquivo.txt ..
+Move o arquivo.txt da pasta atual para sua pasta pai (atalho "..", pasta acima, ou anterior)
+
+Exemplo 2: mover um arquivo de uma pasta origem para outra destino, usando caminhos absolutos, independente de qual seja a pasta atual.
+
+user@hydra:~/atual$mv /home/user/origem/arquivo.txt /home/user/destino/
+
+Exemplo 3: renomear de exercicio1.c para ex1.c mantendo-o na mesma pasta atual. Este comando não altera a data do arquivo.
+
+$mv exercico1.c ex1.c
+
+
+------------------------------- COMANDO: mkdir
+
+Para criar uma pasta dentro da pasta atual, utilize:
+$mkdir nomedanovapasta
+
+Se quiser criar uma pasta dentro de outra já existente, mude (com cd)
+para a pasta que será pai da pasta nova, e use o comando acima. Ou se
+preferir utilizar caminho relativo, crie com:
+$mkdir pasta1/pasta2
+Sendo que pasta1 já deve existir, aí será criada pasta2 dentro de pasta1.
+
+Pode-se utilizar caminho absoluto, desde que todas as pastas existam,
+até a pasta anterior à pasta nova a ser criada. Exemplo:
+$mkdir /home/seuusuario/informatica/rascunhos/
+Este comando cria a pasta rascunhos dentro da pasta
+/home/seuusuario/informatica/ (se a pasta informatica ja existir)
+
+Para criar um conjunto de pastas e criar seus pais caso estes também
+não existam, utilize a chave -p.
+$mkdir -p  pasta1/pasta2/pasta3/pasta4
+Criará pasta3 e pasta4, dentro das já existentes pasta1 e pasta2 (ou
+criará também pasta1 e pasta2 caso não existam)
+
+------------------------------- COMANDO: rmdir
+
+Para remover um diretório (ou pasta), o comando é:
+$rmdir pasta
+A pasta deve estar vazia! Para apagar seu conteúdo antes de apagar a
+pasta, utilize o comando rm.
+
+Para apagar pastas que não estão vazias usando rmdir, é preciso usar a chave "--ignore-fail-on-non-empty", desta forma:
+
+$rmdir --ignore-fail-on-non-empty pasta1
+
+------------------------------- COMANDO: rm
+
+Comando rm para apagar arquivos:
+*dica importante:
+Antes de usar o comando rm, escreva o que quer apagar exatamente, mas
+no lugar de rm use o comando ls. Isso vai LISTAR os arquivos que você quer apagar.
+Confira a lista. Se a lista é exatamente o que quer apagar, edite a linha
+(use a seta para cima e para esquerda) e troque o ls por rm.
+
+Para apagar um arquivo, escreva o nome dele. Exemplo:
+$rm arquivo.txt
+Apaga o arquivo.txt da pasta atual
+
+$rm pasta1/arquivo.txt
+Apaga o arquivo.txt do diretório pasta1 (a partir da pasta atual).
+
+$rm rascunhos/c/testes/*
+Apaga todos arquivos da pasta testes (caminho relativo a partir da atual).
+
+$rm /home/seuusuario/informatica/rascunhos/c/testes/*
+Apaga todos arquivos da pasta /home/seuusuario/informatica/rascunhos/c/testes/
+(caminho absoluto)
+
+Para apagar apenas os arquivos .txt de uma pasta, use:
+$rm pasta/*.txt
+
+Caso queira apagar arquivos de uma pasta1 a partir da pasta atual, e com nomes iniciados por uma palavra1, utilize:
+
+$rm pasta1/palavra1*
+Apaga todos arquivos iniciados com palavra1, ou seja, palavra1.txt,
+palavra1.js, palavra1 (sem nada), palavra1teste.pl, etc.
+
+------------------------------- 
+
+Este comando também apaga pastas. CUIDADO!! As chaves ensinadas abaixo podem destruir seus arquivos.
+
+Para remover uma pasta, a chave "-r" faz com que o comando rm apague "recursivamente". Sempre use o comando ls antes de usar o rm, com as mesmas configurações, para listar o que será apagado. Exemplo:
+
+$ ls pasta1
+Lista, confira, e então digite para apagar
+$ rm -r pasta1
+
+Se o rm pedir muitas confirmações, é possível desligar o pedido de confirmação. CUIDADO!! A chave ensinada a seguir não te dá chance de arrependimento.
+
+A chave "-f" significa "forçadamente", isso evita ter que confirmar a cada arquivo. A chave oposta, que faz o rm pedir confirmação para cada remoção, é a chave "-i". Para remover uma pasta, sem confirmar (forçadamente) e recursivamente, use:
+
+$ ls pasta1
+$ rm -rf pasta1
+
+
+------------------------------- COMANDO: cat
+
+Para ver o conteúdo de um arquivo:
+
+$cat arquivo.txt
+Mostra o conteúdo do arquivo, e volta imediatamente ao prompt.
+
+$cat -n arquivo.txt
+Mostra o conteúdo do arquivo numerando suas linhas, e volta ao prompt.
+
+$cat -A arquivo.txt
+Mostra o conteúdo do arquivo mostrando caracteres de controle.
+
+------------------------------- COMANDO: less
+
+Parecido com o cat, mas pausa a cada tela cheia. Use Page-UP e Page-Down para se mover. E tecle q para sair.
+
+$less arquivo.txt
+Mostra o conteúdo do arquivo página a página. Para sair, tecle 'q'
+
+$less -N arquivo.c
+Mostra o conteúdo do arquivo numerando as linhas (repare a chave -N é
+maiúscula).
+
+------------------------------- COMANDO: hexdump
+
+Parecido com cat e less, mas é útil para ver o conteúdo de arquivos binários (executáveis).
+
+$hexdump -C arquivo.x
+lista o conteúdo de um arquivo binário, mostrando seus caracteres em formato hexadecimal.
+
+------------------------------- COMANDO: tail
+
+Comando parecido com cat, mas útil quando o arquivo é muito grande e você só quer ver as linhas finais.
+
+$tail -n10 arquivo.txt
+Mostra as 10 últimas linhas de um arquivo texto.
+(Não é indicado para binários)
+
+Se é um arquivo que está crescendo (como a saída de um programa atualmente em execução), você pode querer seguí-lo com -f
+
+$tail -f saida.txt
+Isso faz o tail mostrar o final do arquivo, e continuar rodando e mostrando mais linhas, caso o arquivo aumente. Para finalizar, use CONTROL+C.
+
+------------------------------- COMANDO: wc
+
+Conta linhas, palavras e bytes (caracteres)
+
+Exemplo:
+$wc resumo.txt
+30 450 3150
+
+Significa que o arquivo tem 30 linhas, 450 palavras e aproximadamente 3KBytes.
+
+Muito usado como filtro (veja abaixo, pipe)
+
+------------------------------- COMANDO: finger
+
+
+$finger usuario
+Dá os dados do usuário. O usuário pode ser você ou usuario. Informa se está online.
+
+$finger
+Mostra todos que estão logados, seus logins e nomes, e tempo sem iteração (idle).
+
+
+------------------------------- COMANDO: chfn
+
+Muda informações apresentadas pelo finger. Pede a senha para confirmar.
+Exemplos de uso:
+
+Para mudar o email (-r: "office room number")
+$chfn -r "novo@email.com"
+
+Para esconder o CPF, coloque alguns asteriscos. Use o hífen para separar o dígito ao final. (-w: "work phone")
+$chfn -w "****56789-01"
+
+Para mudar o telefone, use o formato como no exemplo. (-h: "home phone")
+$chfn -h "(81) 98765-4321"
+
+Não esqueça das aspas.
+
+* Para mudar as notas do "Plan", basta editar o arquivo ~/.plan com o editor vi.
+
+------------------------------- COMANDO: vi
+
+Editor de textos completo.
+
+$vi ex1.c
+Edita um arquivo fonte em C. Para iniciar a digitação (modo inserção), tecle <i>. Para gravar e sair, tecle <ESC> (modo comando) e depois o comando ":x".
+
+
+------------------------------- COMANDO: who
+
+$who
+Mostra todos usuários online.
+
+------------------------------- COMANDO: write
+
+$write usuario
+mensagem
+oo
+ctrl-d
+
+Escreve uma mensagem para outro usuário. Para sair tecle ctrl-d.
+
+* Caso alguém mande uma mensagem enquanto estiver no VI, basta usar ctrl-L para limpar a tela.
+--
+                
+------------------------------- COMANDO: mesg
+
+$mesg y
+liga o recebimento de mensagens do write
+
+$mesg n
+desliga o recebimento de mensagens do write
+
+$mesg
+Sem argumentos, imprime a configuração (situação) corrente
+
+------------------------------- COMANDO: ps
+Lista processos.
+Exemplo de uso:
+Suponha que seu programa travou. Para descobrir o "PID" dele, abra outro terminal (faça novamente login), digite então:
+
+$ps -U seuusuario
+Este comando dá uma lista de processos rodando em seu nome. Muitos são
+do sistema operacional. Mas um deles será o seu programa que está travado.
+
+O nome do programa está na última coluna. Na primeira coluna tem seu
+número de processo (PID). Com o PID em mãos, prepare-se para utilizar
+o comando mais violento do sistema, e amado pelos hackers: kill!
+
+
+------------------------------- COMANDO: kill
+
+Por exemplo, suponha que o PID seja 998877, então digite:
+$kill -KILL 998877
+Pronto! Pode olhar a outra janela que o programa foi eliminado!
+
+Normalmente basta teclar CONTROL+C que o programa termina. Só se não conseguir assim que se usa o sinal KILL.
+
+O programa kill também pode enviar outros sinais além do sinal KILL. Por exemplo, para pausar um programa e depois continuar, sabendo o PID dele, use:
+
+$kill -SIGSTOP 998877
+
+Depois para continuar, mande o sinal:
+$kill -SIGCONT 998877
+
+
+------------------------------- COMANDO: mail
+
+Mostra mensagens (emails) internos. O email não é entregue para fora do sistema do servidor. Apenas para comunicação interna.
+
+------------------------------- COMANDO: lastlog
+
+Mostra os últimos logins realizados pelos usuários do sistema
+$lastlog
+
+Mostra só o seu login:
+$lastlog -u usuario
+
+------------------------------- COMANDO: time
+
+Este comando serve para avaliar o tempo de resposta de um programa.
+Por exemplo, você criou um programa para ordenar uma matriz de 200 elementos. Você quer então cronometrar o tempo que o programa demora. Suponha que este seja o exercício número 15. Então:
+
+$./ex15.x
+Executa normalmente o programa de ordenar matrizes sem cronometrar.
+
+$time ./ex15.x
+Executa o programa de ordenar e cronometra. Ao final, dá uma estatística do tipo:
+
+real    0m1.886s
+user    0m1.876s
+sys     0m0.004s
+
+Onde: real é o tempo total (do relógio, em segundos), user é o tempo de CPU usado pelo processo, sys é o tempo de CPU que o sistema operacional gastou cuidando do processo.
+
+------------------------------- COMANDO: make
+
+Roda um arquivo makefile (ou Makefile) com receita para compilação.
+
+$make
+
+Pode rodar um objetivo específico, desde que esteja programado no makefile. Por exemplo:
+
+$make install
+
+------------------------------- COMANDO: history
+
+$history
+
+Mostra os comandos que estão na memória (na mesma ordem que aparecem quando se tecla as setas para cima/baixo)
+
+
+--------------------- FILTROS --------------------- 
+
+A maioria dos comandos tem uma "saída", que é o resultado que se espera do comando.
+Muitos comandos também tem uma "entrada", que é o dado a ser processado.
+
+É possível combinar comandos enviando a saída de um direto para a entrada do outro, usando para isso o caractar "|" (barra vertical, chamado de pipe; lê-se páipi, do inglês: cano, encanação).
+
+Para funcionar, basta que o comando que produz a saída tenha uma saída compatível com a entrada do comando que a receberá. Exemplo: suponha que vc tenha dois programas, o ex5.x e o ex6.x. O ex5.x pede dois números e imprime sua soma. O ex6.x pede um número e imprime seu sucessor (adiciona 1).
+
+Então rodando apenas o ex5.x, temos que 3+4=7, assim:
+
+$./ex5.x
+3 4
+7
+$
+
+Rodando só o ex6.x, temos que o sucessor de 18 é 19:
+$./ex6.x
+18
+19
+$
+
+Agora rodando ambos ligados via pipe, digitamos os dois números da soma e teremos a saída:
+
+$./ex5.x | ./ex6.x
+3 4
+8
+$
+
+Ou seja, o ex5.x pediu dois números, que digitamos 3 e 4, calculou 7, o pipe enviou o 7 para o ex6.x, que calculou 8 e imprimiu o resultado.
+
+
+
+------------------------------- COMANDO: grep
+
+Útil para achar um determinado texto em um arquivo.
+
+Exemplo: achar as linhas com ocorrência da palavra "cachorro" no arquivo "bichos.txt"
+
+$cat bichos.txt | grep -n cachorro
+
+
+------------------------------- COMANDO: scp
+
+Comando para cópia remota scp.
+Sua sintaxe é igual à do comando cp, com a adição de usuário@servidor:
+antes da pasta.
+
+Exemplo: cópia de local para remoto
+$scp origemlocal destinoremoto
+origemlocal é uma pasta/arquivo qualquer. destinoremoto é na forma
+usuario@servidor:/pastas/ Exemplo:
+
+origemlocal: seu computador em casa, com o DOS/Windows
+destinoremoto: o servidor qualquer
+
+$scp arquivo.txt seuusuario@nomeDoServidor:/home/seuusuario/informatica/rascunhos
+Pede a senha do hydra e depois copia o arquivo.txt na pasta atual do
+computador local para a pasta /home/seuusuario/informatica/rascunhos no computador
+remoto hydra.
+
+Exemplo, cópia de remoto para local
+$scp origemremota destinolocal
+$scp seuusuario@NomedoServidor:/home/seuusuario/informatica/rascunhos/arquivo.txt .
+Copia o arquivo.txt localizado na máquina remota nomeDoServidor, na pasta
+/home/seuusuario/informatica/rascunhos/, sob os cuidados do usuário seuusuario, para a
+pasta atual '.' do computador local.
+
+Também podemos num terceiro computador fazer cópia de um computador
+remoto para outro computador remoto. Suponha que esteja no computador
+do laboratório (LIP06).
+
+Computador usado (local): LIP06
+Origem (remoto): servidor iguana
+Destino (remoto): servidor hydra
+
+LIP06$scp aluno@iguana:/home/aluno/informatica/arquivo.txt seuusuario@hydra:~/informatica/rascunhos/
+Do computador LIP06, inicia uma transferência do arquivo.txt
+localizado no iguana para gravá-lo na pasta de usuário (/home/seuusuario/informatica/rascunhos/) no hydra.
+Pede a senha dos dois servidores remotos em questão.
+
+Lembre-se: um comando scp sempre é local na máquina que se digita,
+mesmo que essa máquina esteja sendo acessada via ssh. O ssh acessa a
+máquina e esta passa a ser seu "local" de trabalho. Portanto, se
+quiser copiar um arquivo do servidor para um computador do
+laboratório LIP06, não use o ssh. Antes de acessar o servidor, faça o scp
+tendo como "local" o computador do laboratório.
+Assim:
+LIP06$scp seuusuario@hydra:~/informatica/* .
+Copia todos arquivos da pasta /home/seuusuario/informatica para o
+diretorio atual '.' do LIP06.
+
+Mas é ERRADO fazer:
+LIP06$ssh seuusuario@hydra     ;# acessou hydra.
+hydra$                         ;# hydra agora é local
+hydra$scp seuusuario@hydra:~/informatica/* .    ;# hydra é local, não
+precisa de usuario@hydra. E ponto '.' é a pasta atual do hydra.
+hydra$scp ~/informatica/* aluno@servidordolip06:~      ;# O laboratório
+não tem servidor conhecido para acesso externo. servidor do LIP06 é
+desconhecido e não funciona.
+
+
+
+------------------------------- COMANDO: sort
+
+Recebe uma entrada e gera uma saída ordenada. Exemplo, ordenar um arquivo com nomes e emails, um por linha, chamado agenda.txt:
+
+$cat agenda.txt | sort
+
+A saída vai para a tela. Caso queira salvar a saída em um arquivo é preciso direcionar a saída do sort. Veja redirecionamento.
+
+
+
+--------------------- REDIRECIONAMENTO ---------------------
+
+Serve para apontar arquivos tanto para entrada como para saída.
+Se nada for indicado, as saídas dos comandos vão para a tela (saída padrão) e as entradas vem do teclado (entrada padrão).
+
+Caso necessário e desejável, é possível salvar uma saída para arquivo.
+
+----------- Operador de redirecionamento de saída: >
+
+A saída do comando irá para o arquivo indicado. Se o arquivo não existir, será criado. Se já existir, seu conteúdo será apagado e será gravado a nova saída.
+
+Exemplo: salvar a saída do comando ls.
+
+$ls > saidals.txt
+
+Se olharmos o diretório:
+$ls
+veremos lá o arquivo novo saidals.txt
+E seu conteúdo:
+$cat saidals.txt
+Nada mais é que o texto que o comando ls gerou.
+
+
+----------- Operador de redirecionamento de saída: >>
+
+A saída do comando irá para o arquivo indicado. Se o arquivo não existir, será criado.
+Mas se o arquivo já existir, a saída será adicionada ao final, preservando o conteúdo anterior.
+
+Exemplo: se repetirmos o comando acima (>) com o ls, o arquivo saidals.txt terá sempre o mesmo tamanho e conteúdo. Mas se usarmos agora:
+
+$ls >> saidals.txt
+
+ao olharmos seu conteúdo veremos uma listagem dobrada!
+
+$cat saidals.txt
+
+----------- Operador de redirecionamento de entrada: <
+
+Faz com que um comando que precise de uma entrada (normalmente do teclado) passe a buscar os valores lendo o arquivo de entrada indicado.
+
+Por exemplo, para usar o sort da agenda.txt do exemplo anterior (com pipe), poderíamos fazer a entrada com:
+
+$sort < agenda.txt
+
+E nesse caso não precisamos do comando cat.
+
+A saída da agenda ordenada vai para a tela. Se quisermos gravar em um novo arquivo já ordenado, podemos combinar os redirecionamentos de entrada e saída assim:
+
+$sort < agenta.txt > agendaordenada.txt
+
+(Não é recomendado usar o mesmo nome de arquivo em um comando com vários redirecionamentos, e pipes, pois o computador pode gerar resultados imprevisíveis)
+
+
+
+-------------- Entrada padrão, saida padrão e saída de erros.
+
+Os comandos lêem da entrada padrão, e escrevem tanto na saída padrão como na saída de erros.
+
+A entrada padrão é capturada pelo "<", e envia o conteúdo de um arquivo para um programa que está pedindo dados.
+
+Já a saída de um programa pode ser enviada para:
+
+A saída padrão (stdout), ou saída número 1. É a saída normal de um comando de impressão (seja em C, com printf, ou em algoritmo com imprima).
+
+A saída de erros (stderr), ou saída número 2. parece ser a mesma, pois ambas aparecem na "tela". Mas é um outro "canal".
+
+Na tela, você não percebe, mas se tentar redirecionar a saída (1 ou 2) para outro programa, sem saber qual a que realmente está sendo usada, verá uma saída vazia sendo passada.
+
+Por exemplo, o compilador gcc imprime as mensagens de erro na saída de erros!
+
+Veja o exemplo anterior:
+
+
+$gcc pi.c -o pi.x -Wall
+pi.c: In function ‘main’:
+pi.c:11:2: error: unknown type name ‘doble’
+
+Se tentarmos redirecionar essa saída de erros para um arquivo pensando ser a saída padrão (saída 1), faríamos:
+
+$gcc pi.c -o pi.x -Wall > saidagcc.txt
+pi.c: In function ‘main’:
+pi.c:11:2: error: unknown type name ‘doble’
+
+Mas ao olharmos o conteúdo do arquivo saidagcc.txt com o comando cat, veríamos que o arquivo está vazio! Além disso, as mensagens de erro ainda apareceram na tela. Qual o mistério?
+
+É preciso redirecionar a saída de erros para isso dar certo. Aí utiliza-se o comando "2>"
+
+$gcc pi.c -o pi.x -Wall 2> saidagcc.txt
+
+Neste caso, o gcc não mostrou nada na tela, e o arquivo saidagcc.txt contém as mensagens de erro. Tudo certo.
+
+E o 2>&1 nada mais é que dizer assim:
+
+"Redirecione a saída de erros para a saída padrão"
+
+Feito isso, há uma "mesclagem" de ambos canais. Então podemos também salvar os erros do gcc no arquivo saidagcc.txt assim:
+
+$gcc pi.c -o pi.x -Wall 2>&1 | tee saidagcc.txt
+
+
+------------------------------- COMANDO: tee
+
+É um comando que ajuda a fazer a ponte entre entradas, saídas e pipes.
+
+O comando tee recebe uma entrada da entrada padrão (que pode ser via pipe ou redirecionamento) e grava o resultado na saída padrão (1) e também em um arquivo dado.
+
+              +-----+
+entrada ----> | tee | ----> arqsaida.txt
+padrão        +-----+
+                 |
+                 +----> saída padrão
+
+Exemplo:
+
+$ ls | tee saidals.txt | wc
+33 33 518
+
+Este comando grava a saída do comando ls no arquivo saidals.txt e ainda
+imprime na saída padrão o mesmo conteúdo, o que permite por sua vez, utilizar um novo pipe e encaminhar o mesmo conteúdo para ser "contado" pelo contador de linhas/palavras/bytes (o comando wc).
+
+
+                              
+ls --> saída  |pipe| entrada --> tee --> arqsaida.txt
+       padrão        padrão       |
+                                  +--> saída  |pipe| entrada --> wc --> saída
+                                       padrão        padrão             padrão (tela)
+
+
+
+------------------------------- COMANDO: md5sum
+
+Comando para checar (ou gerar) um número conhecido por "checksum" que permite dizer com certeza que o arquivo verificado é o mesmo que o autor que gerou o "checksum".
+
+Exemplo 1: Você, programador, disponibiliza um binário para download.
+Suponha que tenha feito dois programas, o pi.x e o pi.exe, para o cálculo do PI para linux e windows.
+
+$ ls
+pi.c pi.x pi.exe
+
+Gere o checksum para os executáveis com o md5sum e redirecione a saída para um arquivo. (Normalmente na internet este arquivo é chamado md5sums -- no plural)
+
+$ md5sum pi.*x* > md5sums
+$ cat md5sums
+d41d8cd98f00b204e9800998ecf8427e  pi.exe
+06fa6e066fe847aec4e5dbcd057bfa9f  pi.x
+$ ls
+pi.c pi.x pi.exe md5sums
+
+Agora suba para a internet os executáveis pi.x, pi.exe e md5sums. Quem baixar seus programas vai poder conferir se não ocorreu alguma corrupção de arquivo durante o download, ou se o executável foi modificado por vírus!
+
+Exemplo 2: Você, usuário, está baixando um programa (pi.x) que tem um arquivo md5sums para conferência.
+
+$ ls
+pi.x md5sums
+
+Confira se o programa baixado confere com o checksum dado.
+
+$ md5sum -c md5sums
+md5sum: pi.exe: No such file or directory
+pi.exe: FAILED open or read
+pi.x: OK
+md5sum: WARNING: 1 listed file could not be read
+
+Como você não baixou o pi.exe, o md5sum não pode conferir, porém o pi.x está OK.
+
+------------------------------- COMANDO: file
+
+Este comando identifica um arquivo ou pasta. Para usar, basta passar o arquivo a ser testado como argumento:
+
+$ file ex1.c
+ex1.c: C source, ASCII text
+
+$ file ex1.x
+ex1.x: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.26, BuildID[sha1]=72a67ec910a4aee79761a555fd6f7deb3340ad4e, not stripped
+
+$ file pasta1
+pasta 1: directory
+
+---------------- Para estudos futuros e aprofundamento:
+Veja os comandos:
+cal
+make
+expressões regulares
+git
+& (background)
+fg (foreground)
+crontab
+chmod
+chown
+lpr
+sta
+rsync
+chaves do gcc
+chaves do vi
+gdb
+cgdb
+mount
+killall
+
+
+----------------------------- Comandos abordados:
+
+exit
+ssh
+passwd
+man
+date
+calendar
+pwd
+cd
+echo
+ls
+cp
+scp
+mkdir
+rmdir
+rm
+cat
+less
+hexdump
+od
+tail
+wc
+mv
+finger
+chfn
+vi
+who
+write
+mesg
+ps
+kill
+mail
+lastlog
+time
+make
+history
+akernaak
+grep
+sort
+sprunge
+gcc
+tee
+md5sum
+file
+
+cal
+expressões regulares
+git
+& (background)
+fg (foreground)
+crontab
+chmod
+chown
+lpr
+sta
+rsync
+gdb
+mount
+
+
+--------------------- REDIRECIONAMENTO ---------------------
+
+----------- Operador de redirecionamento de saída: >
+----------- Operador de redirecionamento de saída: >>
+----------- Operador de redirecionamento de entrada: <
+----------- Operador de redirecionamento de entrada: <<
+
+A saída padrão (stdout)
+A saída de erros (stderr)
+
+
+Conceitos:
+
+Sistema operacional
+Hierarquia
+Sinais
+Redirecionamentos
